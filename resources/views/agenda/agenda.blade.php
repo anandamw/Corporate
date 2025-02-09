@@ -12,7 +12,7 @@
                     <div class="card-header border-bottom pb-0">
                         <div class="d-sm-flex align-items-center mb-3">
                             <div>
-                                <h6 class="font-weight-semibold text-lg mb-0">Tabel Recipient</h6>
+                                <h6 class="font-weight-semibold text-lg mb-0">Tabel Agenda</h6>
                                 {{-- <p class="text-sm mb-sm-0">These are details about the last transactions</p> --}}
                             </div>
                             <div class="ms-auto d-flex">
@@ -34,15 +34,15 @@
                                     <span class="btn-inner--icon">
                                         <i class="fas fa-download me-2"></i> <!-- Ikon Download -->
                                     </span>
-                                    <span class="btn-inner--text">Download</span>
+                                    <a href="/agenda/export" class="btn-inner--text text-white">Download</a>
                                 </button>
 
-                                <a href="/create/surat-masuk"
+                                <a href="/agenda/print"
                                     class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
                                     <span class="btn-inner--icon">
-                                        <i class="fas fa-plus me-2"></i> <!-- Ikon Tambah -->
+                                        <i class="fas fa-print me-2"></i> <!-- Ikon Print -->
                                     </span>
-                                    <span class="btn-inner--text">Tambah Surat</span>
+                                    <span class="btn-inner--text">Print</span>
                                 </a>
 
 

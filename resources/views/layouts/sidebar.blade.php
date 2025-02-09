@@ -37,6 +37,15 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link {{ Request::is('galeri') ? 'active' : '' }}" href="/galeri">
+
+            <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                <i class="fas fa-images fa-2x text-white"></i>
+            </div>
+            <span class="nav-link-text ms-1">Galeri</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {{ Request::is('logout') ? 'active' : '' }}" href="/logout">
 
                 <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
