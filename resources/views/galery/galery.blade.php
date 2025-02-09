@@ -9,7 +9,7 @@
                 <div class="card-header border-bottom pb-0">
                     <div class="d-sm-flex align-items-center mb-3">
                         <div>
-                            <h6 class="font-weight-semibold text-lg mb-0">Tabel Recipient</h6>
+                            <h6 class="font-weight-semibold text-lg mb-0">Tabel Agenda</h6>
                             {{-- <p class="text-sm mb-sm-0">These are details about the last transactions</p> --}}
                         </div>
                         <div class="ms-auto d-flex">
@@ -30,15 +30,15 @@
                                 <span class="btn-inner--icon">
                                     <i class="fas fa-download me-2"></i> <!-- Ikon Download -->
                                 </span>
-                                <span class="btn-inner--text">Download</span>
+                                <a href="/agenda/export" class="btn-inner--text text-white">Download Excel</a>
                             </button>
 
-                            <a href="/create/surat-masuk"
+                            <a href="/agenda/print"
                                 class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
                                 <span class="btn-inner--icon">
-                                    <i class="fas fa-plus me-2"></i> <!-- Ikon Tambah -->
+                                    <i class="fas fa-print me-2"></i> <!-- Ikon Print -->
                                 </span>
-                                <span class="btn-inner--text">Tambah Surat</span>
+                                <span class="btn-inner--text">Print PDF</span>
                             </a>
 
 
@@ -52,17 +52,7 @@
                                 <tr>
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7">No</th>
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Link</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7">Nomer Surat</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Pengirim</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Perihal</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Tanggal Masuk
-                                    </th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Tanggal
-                                        Keluar</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Pengelola
-                                    </th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Status</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Aksi</th>
+
 
                                 </tr>
                             </thead>
@@ -84,82 +74,12 @@
                                         @else
                                             <td>
                                                 <span class="text-sm font-weight-normal">
-                                                    <a href="{{ $item->link }}" style="color: #007bff"> Buka Link >>
+                                                    <a href="{{ $item->link }}" style="color: #007bff">{{ $item->link }}
                                                     </a>
                                                 </span>
                                             </td>
                                         @endif
-                                        <td>
-                                            <p class="text-sm font-weight-normal mb-0">{{ $item->no_surat }}</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-normal mb-0">{{ $item->pengirim }}</p>
-                                        </td>
-                                        <td>
-                                            <span class="text-sm font-weight-normal">{{ $item->perihal }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="text-sm font-weight-normal">{{ $item->tgl_masuk }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="text-sm font-weight-normal">{{ $item->tgl_keluar }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="text-sm font-weight-normal">{{ $item->pengelola }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="text-sm font-weight-normal">{{ $item->status }}</span>
-                                        </td>
 
-                                        <td class="align-middle">
-                                            <a href="javascript:void(0)" class="text-secondary me-2" data-bs-toggle="modal"
-                                                data-bs-target="#linkModal{{ $item->id }}">
-                                                <i class="fas fa-link"></i>
-                                            </a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="tooltip"
-                                                title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="#" class="text-danger me-2" data-bs-toggle="tooltip"
-                                                title="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="linkModal{{ $item->id }}" tabindex="-1"
-                                                aria-labelledby="linkModalLabel{{ $item->id }}" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="linkModalLabel{{ $item->id }}">
-                                                                Link Modal</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                        <form action="/recipient/{{ $item->id }}/update"
-                                                            method="POST">
-                                                            @csrf
-                                                            <div class="modal-body">
-                                                                <div class="mb-3">
-                                                                    <label for="linkInput{{ $item->id }}"
-                                                                        class="form-label">Masukkan Link</label>
-                                                                    <input type="url" class="form-control"
-                                                                        id="linkInput{{ $item->id }}" name="link"
-                                                                        placeholder="https://contoh.com" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">Simpan</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -212,6 +132,7 @@
             </div>
         </div>
     </div>
+
 
 
     <script>

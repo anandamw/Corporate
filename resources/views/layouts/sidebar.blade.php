@@ -1,60 +1,115 @@
 <div class="collapse navbar-collapse px-4  w-auto " id="sidenav-collapse-main">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">
 
-                <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                    <i class="fas fa-tachometer-alt fa-2x text-white"></i>
-                </div>
-                <span class="nav-link-text ms-1">Dashboard</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ Request::is('surat-masuk') ? 'active' : '' }}" href="/surat-masuk">
+    @if (Auth::user()->role === 'admin')
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">
 
-                <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                    <i class="fas fa-inbox fa-2x text-white"></i>
-                </div>
-                <span class="nav-link-text ms-1">Surat Masuk</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ Request::is('recipient') ? 'active' : '' }}" href="/recipient">
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-tachometer-alt fa-2x text-white"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('surat-masuk') ? 'active' : '' }}" href="/surat-masuk">
 
-                <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                    <i class="fas fa-user fa-2x text-white"></i>
-                </div>
-                <span class="nav-link-text ms-1">Recipient</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ Request::is('agenda') ? 'active' : '' }}" href="/agenda">
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-inbox fa-2x text-white"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Surat Masuk</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('recipient') ? 'active' : '' }}" href="/recipient">
 
-                <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                    <i class="fas fa-calendar-alt fa-2x text-white"></i>
-                </div>
-                <span class="nav-link-text ms-1">Agenda</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ Request::is('galeri') ? 'active' : '' }}" href="/galeri">
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-user fa-2x text-white"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Recipient</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('agenda') ? 'active' : '' }}" href="/agenda">
 
-            <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                <i class="fas fa-images fa-2x text-white"></i>
-            </div>
-            <span class="nav-link-text ms-1">Galeri</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ Request::is('logout') ? 'active' : '' }}" href="/logout">
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-calendar-alt fa-2x text-white"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Agenda</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('galeri') ? 'active' : '' }}" href="/galeri">
 
-                <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                    <i class="fas fa-sign-out-alt fa-2x text-white"></i>
-                </div>
-                <span class="nav-link-text ms-1">Logout</span>
-            </a>
-        </li>
-    </ul>
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-images fa-2x text-white"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Galeri</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('logout') ? 'active' : '' }}" href="/logout">
+
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-sign-out-alt fa-2x text-white"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Logout</span>
+                </a>
+            </li>
+        </ul>
+    @else
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">
+
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-tachometer-alt fa-2x text-white"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Dashboard</span>
+                </a>
+            </li>
+          
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('recipient') ? 'active' : '' }}" href="/recipient">
+
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-user fa-2x text-white"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Recipient</span>
+                </a>
+            </li>
+          
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('galeri') ? 'active' : '' }}" href="/galeri">
+
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-images fa-2x text-white"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Galeri</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('logout') ? 'active' : '' }}" href="/logout">
+
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-sign-out-alt fa-2x text-white"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Logout</span>
+                </a>
+            </li>
+        </ul>
+    @endif
+
 
 </div>
 {{-- <div class="sidenav-footer mx-4 ">

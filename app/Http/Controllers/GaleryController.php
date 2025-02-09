@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\SuratMasuk;
+use Illuminate\Http\Request;
+use PhpParser\Node\Expr\FuncCall;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+
+class GaleryController extends Controller
+{
+    public function index()
+    {
+        $datas = [
+            'recipient' => SuratMasuk::join('users', 'surat_masuk.user_id', '=', 'users.id')->where('role', Auth::user()->role)->paginate(10),
+
+        ];
+
+        return view('galery.galery', $datas);
+    }
+}

@@ -12,15 +12,17 @@ return new class() extends Migration {
     {
         Schema::create('surat_masuk', function (Blueprint $table) {
             $table->id();
-            $table->string('no_surat');
+            $table->string('no_surat')->unique(); // Tambahkan unique jika no_surat tidak boleh sama
             $table->string('pengirim');
             $table->string('perihal');
             $table->string('link')->nullable();
             $table->date('tgl_masuk');
-            $table->date('tgl_keluar');
-            $table->enum('pengelola', ['sekretaris', 'pemdes', 'peukd', 'pkkmd']);
-            $table->enum('status', ['Gambar Pending', 'Gambar Centang', 'Gambar Silang']);
+            $table->date('tgl_keluar')->nullable(); // Bisa jadi opsional
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Relasi ke users
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+
             $table->timestamps();
+            $table->softDeletes(); // Untuk menghindari penghapusan permanen
         });
     }
 

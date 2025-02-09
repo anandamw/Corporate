@@ -34,7 +34,7 @@
                                     <span class="btn-inner--icon">
                                         <i class="fas fa-download me-2"></i> <!-- Ikon Download -->
                                     </span>
-                                    <a href="/agenda/export" class="btn-inner--text text-white">Download</a>
+                                    <a href="/agenda/export" class="btn-inner--text text-white">Download Excel</a>
                                 </button>
 
                                 <a href="/agenda/print"
@@ -42,7 +42,7 @@
                                     <span class="btn-inner--icon">
                                         <i class="fas fa-print me-2"></i> <!-- Ikon Print -->
                                     </span>
-                                    <span class="btn-inner--text">Print</span>
+                                    <span class="btn-inner--text">Print PDF</span>
                                 </a>
 
 

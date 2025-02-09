@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\Exports\SuratMasukExport;
 use App\Models\SuratMasuk;
 use Illuminate\Http\Request;
@@ -22,7 +24,20 @@ class AgendaController extends Controller
 
     public function export()
     {
-        
+
         return Excel::download(new SuratMasukExport, 'Surat Masuk.xlsx');
+    }
+
+
+
+    public function print()
+    {
+
+        $datas = SuratMasuk::join('users', 'surat_masuk.user_id', '=', 'users.id')->get();
+
+
+        $pdf = Pdf::loadView('agenda.pdf', compact('datas'))->setPaper('a4', 'landscape')->setWarnings('false');
+
+        return $pdf->stream('agenda.pdf', ["Attachment" => false]);
     }
 }

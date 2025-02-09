@@ -17,9 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['admin', 'sekretaris', 'pemdes', 'peukd', 'pkkmd']); // Tambah admin
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes(); // Untuk soft delete
         });
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
