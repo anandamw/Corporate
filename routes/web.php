@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/galeri', [GaleryController::class, 'index']);
     Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/surat-masuk', [SuratMasukController::class, 'index']);
+        Route::post('/surat-masuk/store', [SuratMasukController::class, 'store']);
         Route::get('/agenda', [AgendaController::class, 'index']);
         Route::get('/agenda/print', [AgendaController::class, 'print']);
         Route::get('/agenda/export', [AgendaController::class, 'export']);

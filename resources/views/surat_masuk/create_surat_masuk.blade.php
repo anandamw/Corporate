@@ -6,106 +6,102 @@
     <div class="row">
         <div class="col-12">
             <div class="card border shadow-xs mb-4">
-                <div class="card-header border-bottom pb-0">
-                    <div class="d-sm-flex align-items-center mb-3">
-                        <div>
-                            <h6 class="font-weight-semibold text-lg mb-0">Recent transactions</h6>
-                            <p class="text-sm mb-sm-0">These are details about the last transactions</p>
-                        </div>
-                        <div class="ms-auto d-flex">
-                            <div class="input-group input-group-sm ms-auto me-2">
-                                <span class="input-group-text text-body">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z">
-                                        </path>
-                                    </svg>
-                                </span>
-                                <input type="text" class="form-control form-control-sm" placeholder="Search">
-                            </div>
-                            <button type="button" class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
-                                <span class="btn-inner--icon">
-                                    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="d-block me-2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                    </svg>
-                                </span>
-                                <span class="btn-inner--text">Download</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
+
                 <div class="card-body px-0 py-0">
                     <div class=" p-5">
-                        <form action="/transactions" method="POST">
+                        <form action="/surat-masuk/store" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="col-xl-6 col-12">
-
                                     <div class="mb-3">
-                                        <label for="transaction_name" class="form-label">No Surat</label>
-                                        <input type="text" class="form-control" id="transaction_name"
-                                            name="transaction_name" required>
+                                        <label for="no_surat" class="form-label">No Surat</label>
+                                        <input type="text" class="form-control" id="no_surat" name="no_surat"
+                                            value="{{ old('no_surat') }}" required>
+                                        @error('no_surat')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-12">
                                     <div class="mb-3">
-                                        <label for="pengerim" class="form-label">Pengerim</label>
-                                        <input type="text" class="form-control" id="pengerim" name="pengerim" required>
+                                        <label for="pengirim" class="form-label">Pengirim</label>
+                                        <input type="text" class="form-control" id="pengirim" name="pengirim"
+                                            value="{{ old('pengirim') }}" required>
+                                        @error('pengirim')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class=" col-12">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label for="perihal" class="form-label">Perihal</label>
-                                        <input type="text" class="form-control" id="perihal" name="transaction_name"
-                                            required>
+                                        <input type="text" class="form-control" id="perihal" name="perihal"
+                                            value="{{ old('perihal') }}" required>
+                                        @error('perihal')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-12">
                                     <div class="mb-3">
-                                        <label for="date" class="form-label">Tanggal Masuk Surat</label>
-                                        <input type="date" class="form-control" id="date" name="tgl_masuk" required>
+                                        <label for="tgl_masuk" class="form-label">Tanggal Masuk Surat</label>
+                                        <input type="date" class="form-control" id="tgl_masuk" name="tgl_masuk"
+                                            value="{{ old('tgl_masuk') }}" required>
+                                        @error('tgl_masuk')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-12">
                                     <div class="mb-3">
-                                        <label for="date" class="form-label">Tanggal Terakhir Surat</label>
-                                        <input type="date" class="form-control" id="date" name="tgl_trakhir"
-                                            required>
+                                        <label for="tgl_keluar" class="form-label">Tanggal Terakhir Surat</label>
+                                        <input type="date" class="form-control" id="tgl_keluar" name="tgl_keluar"
+                                            value="{{ old('tgl_keluar') }}">
+                                        @error('tgl_keluar')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
-
                                 <div class="col-xl-12 col-12">
                                     <div class="mb-3">
-                                        <label for="status" class="form-label">Pengelola</label>
-                                        <select name="pengelola" class="form-select">
+                                        <label for="user_id" class="form-label">Pengelola</label>
+                                        <select name="user_id" class="form-select">
                                             <option selected disabled>no selected</option>
-                                            <option value="sekretaris">Sekretaris</option>
-                                            <option value="pemdes">Pemdes</option>
-                                            <option value="peukd">Peukd</option>
-                                            <option value="pkkmd">Pkkmd</option>
+                                            @foreach ($users as $item)
+                                                <option value="{{ $item->id }}"
+                                                    {{ old('user_id') == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->role }}</option>
+                                            @endforeach
                                         </select>
+                                        @error('user_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-12">
                                     <div class="mb-3">
                                         <label for="status" class="form-label">Status</label>
                                         <select class="form-select" id="status" name="status">
-                                            <option value="pending" selected>Menunggu</option>
-                                            <option value="approved">Disetujui</option>
-                                            <option value="rejected">Ditolak</option>
+                                            <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>
+                                                Menunggu</option>
+                                            <option value="approved" {{ old('status') == 'approved' ? 'selected' : '' }}>
+                                                Disetujui</option>
+                                            <option value="rejected" {{ old('status') == 'rejected' ? 'selected' : '' }}>
+                                                Ditolak</option>
                                         </select>
+                                        @error('status')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="text-start">
                                     <button type="submit" class="btn btn-primary">Save</button>
                                     <a href="/surat-masuk" class="btn btn-secondary">Cancel</a>
                                 </div>
-
                             </div>
-
                         </form>
+
                     </div>
                 </div>
             </div>

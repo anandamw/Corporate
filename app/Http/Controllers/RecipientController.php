@@ -13,7 +13,7 @@ class RecipientController extends Controller
     public function index()
     {
         $datas = [
-            'recipient' => SuratMasuk::paginate(10),  // Paginate 10 records per page
+            'recipient' => SuratMasuk::latest()->paginate(10),  // Apply latest first, then paginate
         ];
 
         return view('recipient.recipient', $datas);
