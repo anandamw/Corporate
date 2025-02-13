@@ -15,7 +15,7 @@ class SuratMasukController extends Controller
         $datas = [
             'status' => SuratMasuk::select('status'),
             'pengelola' => SuratMasuk::select('pengelola'),
-
+            'title' => 'Surat Masuk',
             'users' => User::all(),
         ];
 
@@ -41,7 +41,6 @@ class SuratMasukController extends Controller
             'no_surat.unique' => 'Nomor surat sudah digunakan, silakan gunakan nomor lain.',
             'no_surat.required' => 'Nomor surat wajib diisi.',
         ]);
-
 
         $suratMasuk = SuratMasuk::create($request->all());
 

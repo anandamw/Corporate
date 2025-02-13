@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/recipient', [RecipientController::class, 'index']);
     Route::post('/recipient/{id}/update', [RecipientController::class, 'update_link']);
     Route::get('/galeri', [GaleryController::class, 'index']);
+
+
     Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/surat-masuk', [SuratMasukController::class, 'index']);
         Route::post('/surat-masuk/store', [SuratMasukController::class, 'store']);

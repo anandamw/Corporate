@@ -14,7 +14,7 @@ class GaleryController extends Controller
     {
         $datas = [
             'recipient' => SuratMasuk::join('users', 'surat_masuk.user_id', '=', 'users.id')->where('role', Auth::user()->role)->paginate(10),
-
+            'title' => 'Galeri',
         ];
 
         return view('galery.galery', $datas);

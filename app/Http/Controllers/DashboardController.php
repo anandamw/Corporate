@@ -23,8 +23,15 @@ class DashboardController extends Controller
             'pkkmd' => SuratMasuk::whereHas('user', function ($query) {
                 $query->where('role', 'pkkmd');
             })->where('status', 'pending')->count(),
+
+
+
         ];
 
-        return view('dashboard', compact('data'));
+
+        $title =   'Dashboard';
+
+
+        return view('dashboard', compact('data', 'title'));
     }
 }

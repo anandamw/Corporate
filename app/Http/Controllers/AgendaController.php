@@ -16,6 +16,8 @@ class AgendaController extends Controller
     {
         $datas = [
             'recipient' => SuratMasuk::paginate(10),  // Paginate 10 records per page
+
+            'title' => 'Login',
         ];
 
         return view('agenda.agenda', $datas);

@@ -79,7 +79,8 @@
                                         </td>
                                         @if ($item->link == null)
                                             <td>
-                                                <span class="text-sm font-weight-normal ">Tidak ada link</span>
+                                                <span class="text-sm font-weight-normal ">Tidak ada link
+                                                    {{ $item->id }}</span>
                                             </td>
                                         @else
                                             <td>
@@ -152,7 +153,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <button type="submit"
-                                                                    class="btn btn-primary">Simpan</button>
+                                                                    class="btn btn-primary">{{ $item->id }}Simpan</button>
                                                             </div>
                                                         </form>
                                                     </div>

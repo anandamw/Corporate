@@ -26,7 +26,7 @@
                                     placeholder="Search">
                             </div>
 
-                            <button type="button" class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
+                            {{-- <button type="button" class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
                                 <span class="btn-inner--icon">
                                     <i class="fas fa-download me-2"></i> <!-- Ikon Download -->
                                 </span>
@@ -39,7 +39,7 @@
                                     <i class="fas fa-print me-2"></i> <!-- Ikon Print -->
                                 </span>
                                 <span class="btn-inner--text">Print PDF</span>
-                            </a>
+                            </a> --}}
 
 
                         </div>
