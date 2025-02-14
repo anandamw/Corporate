@@ -20,7 +20,8 @@ class RecipientController extends Controller
             'recipient' => SuratMasuk::select(
                 'surat_masuk.id as surat_id', // Aliaskan id dari surat_masuk agar tidak bentrok
                 'surat_masuk.*',
-                'users.name as user_name' // Ambil nama user jika dibutuhkan
+                'users.name as user_name',
+                'users.role'
             )
                 ->join('users', 'surat_masuk.user_id', '=', 'users.id')
                 ->when($user->role !== 'admin', function ($query) use ($user) {

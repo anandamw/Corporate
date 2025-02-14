@@ -15,7 +15,6 @@ class AgendaController extends Controller
 {
     public function index()
     {
-
         $user = Auth::user();
 
         $datas = [
@@ -25,9 +24,7 @@ class AgendaController extends Controller
                 'users.name as user_name' // Ambil nama user jika dibutuhkan
             )
                 ->join('users', 'surat_masuk.user_id', '=', 'users.id')
-                ->when($user->role !== 'admin', function ($query) use ($user) {
-                    return $query->where('users.role', $user->role);
-                })
+                ->whereNotNull('surat_masuk.link') // Perbaikan untuk memeriksa apakah link tidak null
                 ->orderByRaw("
                     CASE 
                         WHEN surat_masuk.status = 'verifikasi' THEN 1
@@ -40,12 +37,9 @@ class AgendaController extends Controller
             'title' => 'Agenda',
         ];
 
-
-
-
-
         return view('agenda.agenda', $datas);
     }
+
 
 
     public function export()
@@ -65,5 +59,23 @@ class AgendaController extends Controller
         $pdf = Pdf::loadView('agenda.pdf', compact('datas'))->setPaper('a4', 'landscape')->setWarnings('false');
 
         return $pdf->stream('agenda.pdf', ["Attachment" => false]);
+    }
+    // Controller function
+    public function updateDataStatus(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:verifikasi,setuju,ditolak', // Validasi status yang diterima
+        ]);
+
+        // Mencari SuratMasuk berdasarkan ID
+        $suratMasuk = SuratMasuk::findOrFail($id);
+
+        // Memperbarui status surat
+        $suratMasuk->status = $request->input('status');
+        $suratMasuk->save(); // Menyimpan perubahan
+        alert()->success('Success', 'Berhasil edit Status');
+
+        // Memberikan response atau redirect setelah update
+        return redirect('/agenda');
     }
 }

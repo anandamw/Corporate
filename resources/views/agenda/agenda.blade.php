@@ -86,6 +86,9 @@
                                         </th>
 
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Status</th>
+                                        <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2 ">
+                                            ------------------------
+                                        </th>
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Aksi</th>
                                     </tr>
                                 </thead>
@@ -101,9 +104,10 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            @if ($item->file_surat == null)
+                                            @if ($item->link == null)
                                                 <td>
-                                                    <span class="text-sm font-weight-normal ">Tidak ada link</span>
+                                                    <span class="text-sm font-weight-normal ">Tidak ada link
+                                                    </span>
                                                 </td>
                                             @else
                                                 <td>
@@ -122,8 +126,14 @@
                                                 <p class="text-sm font-weight-normal mb-0">{{ $item->pengirim }}</p>
                                             </td>
                                             <td>
-                                                <span class="text-sm font-weight-normal">{{ $item->perihal }}</span>
+                                                <p class="text-sm font-weight-normal mb-0">
+                                                    <a href="{{ asset('assets/file_surat/' . $item->file_surat) }}"
+                                                        style="color: rgb(24, 24, 255)" target="_blank">
+                                                        <i class="fas fa-eye"></i>__{{ $item->perihal }}
+                                                    </a>
+                                                </p>
                                             </td>
+
                                             <td>
                                                 <span class="text-sm font-weight-normal">{{ $item->tgl_masuk }}</span>
                                             </td>
@@ -142,56 +152,38 @@
                                                 </span>
                                             </td>
 
-                                            <td class="align-middle">
-                                                <a href="javascript:void(0)" class="text-secondary me-2"
-                                                    data-bs-toggle="modal" data-bs-target="#linkModal{{ $item->id }}">
-                                                    <i class="fas fa-link"></i>
-                                                </a>
-                                                <a href="#" class="text-primary me-2" data-bs-toggle="tooltip"
-                                                    title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="#" class="text-danger me-2" data-bs-toggle="tooltip"
-                                                    title="Hapus">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
 
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="linkModal{{ $item->id }}" tabindex="-1"
-                                                    aria-labelledby="linkModalLabel{{ $item->id }}" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title"
-                                                                    id="linkModalLabel{{ $item->id }}">Link Modal</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <form action="/recipient/{{ $item->id }}/update"
-                                                                method="POST">
-                                                                @csrf
-                                                                <div class="modal-body">
-                                                                    <div class="mb-3">
-                                                                        <label for="linkInput{{ $item->id }}"
-                                                                            class="form-label">Masukkan Link</label>
-                                                                        <input type="url" class="form-control"
-                                                                            id="linkInput{{ $item->id }}"
-                                                                            name="link"
-                                                                            placeholder="https://contoh.com" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Batal</button>
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">Simpan</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
+                                            <td>
+                                                <div class="">
+                                                    <form action="{{ route('surat-masuk.updateStatus', $item->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <select class="form-select" id="status" name="status">
+                                                            <option value="verifikasi"
+                                                                {{ $item->status == 'verifikasi' ? 'selected' : '' }}>
+                                                                Verifikasi</option>
+                                                            <option value="setuju"
+                                                                {{ $item->status == 'setuju' ? 'selected' : '' }}>Setuju
+                                                            </option>
+                                                            <option value="ditolak"
+                                                                {{ $item->status == 'ditolak' ? 'selected' : '' }}>Ditolak
+                                                            </option>
+                                                        </select>
+                                                        @error('status')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
                                                 </div>
-
                                             </td>
+                                            <td class="align-middle">
+                                                <button type="submit" class="btn btn-success btn-sm">
+                                                    <i class="fas fa-check-circle"></i> Save
+                                                </button>
+                                                </form>
+                                            </td>
+
+
+
                                         </tr>
                                     @endforeach
                                 </tbody>
