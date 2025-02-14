@@ -47,21 +47,16 @@
                                     placeholder="Search">
                             </div>
 
-                            <button type="button" class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
-                                <span class="btn-inner--icon">
-                                    <i class="fas fa-download me-2"></i> <!-- Ikon Download -->
-                                </span>
-                                <span class="btn-inner--text">Download</span>
-                            </button>
 
-                            <a href="/create/surat-masuk"
-                                class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
-                                <span class="btn-inner--icon">
-                                    <i class="fas fa-plus me-2"></i> <!-- Ikon Tambah -->
-                                </span>
-                                <span class="btn-inner--text">Tambah Surat</span>
-                            </a>
-
+                            @if (Auth::user()->role === 'admin')
+                                <a href="/create/surat-masuk"
+                                    class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
+                                    <span class="btn-inner--icon">
+                                        <i class="fas fa-plus me-2"></i> <!-- Ikon Tambah -->
+                                    </span>
+                                    <span class="btn-inner--text">Tambah Surat</span>
+                                </a>
+                            @endif
 
                         </div>
                     </div>
@@ -138,22 +133,22 @@
                                             </span>
                                         </td>
 
-
-
                                         <td class="align-middle">
                                             <a href="javascript:void(0)" class="text-secondary me-2" data-bs-toggle="modal"
                                                 data-bs-target="#linkModal{{ $item->id }}">
                                                 <i class="fas fa-link"></i>
                                             </a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="tooltip"
-                                                title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="#" class="text-danger me-2" data-bs-toggle="tooltip"
-                                                title="Hapus">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
 
+                                            @if (Auth::user()->role === 'admin')
+                                                <a href="#" class="text-primary me-2" data-bs-toggle="tooltip"
+                                                    title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="#" class="text-danger me-2" data-bs-toggle="tooltip"
+                                                    title="Hapus">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                            @endif
                                             <!-- Modal -->
                                             <div class="modal fade" id="linkModal{{ $item->id }}" tabindex="-1"
                                                 aria-labelledby="linkModalLabel{{ $item->id }}" aria-hidden="true">

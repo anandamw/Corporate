@@ -84,8 +84,7 @@
                                         </th>
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Batas Akhir
                                         </th>
-                                        <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Pengelola
-                                        </th>
+
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Status</th>
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Aksi</th>
                                     </tr>
@@ -131,9 +130,7 @@
                                             <td>
                                                 <span class="text-sm font-weight-normal">{{ $item->tgl_keluar }}</span>
                                             </td>
-                                            <td>
-                                                <span class="text-sm font-weight-normal">{{ $item->pengelola }}</span>
-                                            </td>
+
                                             <td>
                                                 <span
                                                     class="badge text-white 

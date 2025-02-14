@@ -23,7 +23,9 @@ class RecipientController extends Controller
                 'users.name as user_name' // Ambil nama user jika dibutuhkan
             )
                 ->join('users', 'surat_masuk.user_id', '=', 'users.id')
-                ->where('users.role', $user->role)
+                ->when($user->role !== 'admin', function ($query) use ($user) {
+                    return $query->where('users.role', $user->role);
+                })
                 ->orderByRaw("
                     CASE 
                         WHEN surat_masuk.status = 'verifikasi' THEN 1
