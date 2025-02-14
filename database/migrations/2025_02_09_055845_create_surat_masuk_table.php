@@ -17,9 +17,10 @@ return new class() extends Migration {
             $table->string('perihal');
             $table->string('link')->nullable();
             $table->date('tgl_masuk');
+            $table->string('file_surat')->nullable();
             $table->date('tgl_keluar')->nullable(); // Bisa jadi opsional
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Relasi ke users
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['verifikasi', 'setuju', 'ditolak'])->default('verifikasi');
 
             $table->timestamps();
             $table->softDeletes(); // Untuk menghindari penghapusan permanen

@@ -9,6 +9,8 @@
  </head>
 
  <body class="g-sidenav-show  bg-gray-100">
+     @include('sweetalert::alert')
+
      <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 bg-slate-900 fixed-start " id="sidenav-main">
          <div class="sidenav-header">
              <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"

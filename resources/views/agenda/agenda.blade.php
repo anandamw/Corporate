@@ -3,6 +3,27 @@
 
 
 @section('content')
+    <style>
+        .badge.bg-warning {
+            background-color: #d4a20a !important;
+            color: #fff !important;
+        }
+
+        .badge.bg-success {
+            background-color: #28a745 !important;
+            color: #fff !important;
+        }
+
+        .badge.bg-danger {
+            background-color: #dc3545 !important;
+            color: #fff !important;
+        }
+
+        .badge.bg-secondary {
+            background-color: #6c757d !important;
+            color: #fff !important;
+        }
+    </style>
     <div class="container-fluid py-4 px-5">
 
 
@@ -61,13 +82,12 @@
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Perihal</th>
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Tanggal Masuk
                                         </th>
-                                        <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Tanggal
-                                            Keluar</th>
+                                        <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Batas Akhir
+                                        </th>
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Pengelola
                                         </th>
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Status</th>
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Aksi</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -78,18 +98,21 @@
                                                 <div class="d-flex px-2">
                                                     <div class="my-auto">
                                                         <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
+
                                                     </div>
                                                 </div>
                                             </td>
-                                            @if ($item->link == null)
+                                            @if ($item->file_surat == null)
                                                 <td>
                                                     <span class="text-sm font-weight-normal ">Tidak ada link</span>
                                                 </td>
                                             @else
                                                 <td>
                                                     <span class="text-sm font-weight-normal">
-                                                        <a href="{{ $item->link }}" style="color: #007bff"> Buka Link >>
-                                                        </a>
+
+                                                        <a href="{{ asset('assets/file_surat/' . $item->file_surat) }}"
+                                                            style="color: rgb(24, 24, 255)" target="_blank">__Link >></a>
+
                                                     </span>
                                                 </td>
                                             @endif
@@ -112,7 +135,14 @@
                                                 <span class="text-sm font-weight-normal">{{ $item->pengelola }}</span>
                                             </td>
                                             <td>
-                                                <span class="text-sm font-weight-normal">{{ $item->status }}</span>
+                                                <span
+                                                    class="badge text-white 
+                                                    @if ($item->status == 'verifikasi') bg-warning 
+                                                    @elseif ($item->status == 'setuju') bg-success 
+                                                    @elseif ($item->status == 'ditolak') bg-danger 
+                                                    @else bg-secondary @endif">
+                                                    {{ $item->status }}
+                                                </span>
                                             </td>
 
                                             <td class="align-middle">
@@ -217,45 +247,7 @@
                 </div>
             </div>
         </div>
-        <footer class="footer pt-3  ">
-            <div class="container-fluid">
-                <div class="row align-items-center justify-content-lg-between">
-                    <div class="col-lg-6 mb-lg-0 mb-4">
-                        <div class="copyright text-center text-xs text-muted text-lg-start">
-                            Copyright
-                            ©
-                            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>
-                            Corporate UI by
-                            <a href="https://www.creative-tim.com" class="text-secondary" target="_blank">Creative
-                                Tim</a>.
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com" class="nav-link text-xs text-muted"
-                                    target="_blank">Creative Tim</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/presentation" class="nav-link text-xs text-muted"
-                                    target="_blank">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/blog" class="nav-link text-xs text-muted"
-                                    target="_blank">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/license" class="nav-link text-xs pe-0 text-muted"
-                                    target="_blank">License</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
+
     </div>
 
     <script>

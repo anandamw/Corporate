@@ -3,6 +3,27 @@
 
 
 @section('content')
+    <style>
+        .badge.bg-warning {
+            background-color: #d4a20a !important;
+            color: #fff !important;
+        }
+
+        .badge.bg-success {
+            background-color: #28a745 !important;
+            color: #fff !important;
+        }
+
+        .badge.bg-danger {
+            background-color: #dc3545 !important;
+            color: #fff !important;
+        }
+
+        .badge.bg-secondary {
+            background-color: #6c757d !important;
+            color: #fff !important;
+        }
+    </style>
     <div class="row">
         <div class="col-12">
             <div class="card border shadow-xs mb-4">
@@ -57,10 +78,8 @@
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Perihal</th>
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Tanggal Masuk
                                     </th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Tanggal
-                                        Keluar</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Pengelola
-                                    </th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Batas Akhir</th>
+
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Status</th>
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Aksi</th>
 
@@ -77,7 +96,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        @if ($item->link == null)
+                                        @if ($item->file_surat == null)
                                             <td>
                                                 <span class="text-sm font-weight-normal ">Tidak ada link
                                                     {{ $item->id }}</span>
@@ -85,8 +104,10 @@
                                         @else
                                             <td>
                                                 <span class="text-sm font-weight-normal">
-                                                    <a href="{{ $item->link }}" style="color: #007bff"> Buka Link >>
-                                                    </a>
+
+                                                    <a href="{{ asset('assets/file_surat/' . $item->file_surat) }}"
+                                                        style="color: rgb(24, 24, 255)" target="_blank">__Link >></a>
+
                                                 </span>
                                             </td>
                                         @endif
@@ -105,12 +126,19 @@
                                         <td>
                                             <span class="text-sm font-weight-normal">{{ $item->tgl_keluar }}</span>
                                         </td>
+
                                         <td>
-                                            <span class="text-sm font-weight-normal">{{ $item->pengelola }}</span>
+                                            <span
+                                                class="badge text-white 
+                                                @if ($item->status == 'verifikasi') bg-warning 
+                                                @elseif ($item->status == 'setuju') bg-success 
+                                                @elseif ($item->status == 'ditolak') bg-danger 
+                                                @else bg-secondary @endif">
+                                                {{ $item->status }}
+                                            </span>
                                         </td>
-                                        <td>
-                                            <span class="text-sm font-weight-normal">{{ $item->status }}</span>
-                                        </td>
+
+
 
                                         <td class="align-middle">
                                             <a href="javascript:void(0)" class="text-secondary me-2" data-bs-toggle="modal"
@@ -163,6 +191,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -210,6 +239,9 @@
                     </div>
 
                 </div>
+
+
+
             </div>
         </div>
     </div>

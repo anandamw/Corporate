@@ -24,10 +24,18 @@ class RecipientController extends Controller
             )
                 ->join('users', 'surat_masuk.user_id', '=', 'users.id')
                 ->where('users.role', $user->role)
-                ->orderBy('surat_masuk.created_at', 'desc')
+                ->orderByRaw("
+                    CASE 
+                        WHEN surat_masuk.status = 'verifikasi' THEN 1
+                        WHEN surat_masuk.status = 'setuju' THEN 2
+                        ELSE 3
+                    END
+                ")
+                ->orderBy('surat_masuk.created_at', 'desc') // Tambahan sorting berdasarkan tanggal terbaru
                 ->paginate(10),
             'title' => 'Recipient',
         ];
+
 
 
 

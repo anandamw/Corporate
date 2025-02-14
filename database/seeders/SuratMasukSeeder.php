@@ -24,7 +24,8 @@ class SuratMasukSeeder extends Seeder
                 'tgl_masuk' => Carbon::now()->subDays(5)->format('Y-m-d'),
                 'tgl_keluar' => Carbon::now()->format('Y-m-d'),
                 'user_id' => 2, // Sesuaikan dengan ID user
-                'status' => 'pending',
+                'status' => 'verifikasi',
+                 'file_surat' => 'surat.pdf'
             ],
             [
                 'no_surat' => '002/SM/2025',
@@ -34,7 +35,8 @@ class SuratMasukSeeder extends Seeder
                 'tgl_masuk' => Carbon::now()->subDays(3)->format('Y-m-d'),
                 'tgl_keluar' => Carbon::now()->addDays(2)->format('Y-m-d'),
                 'user_id' => 3, // Sesuaikan dengan ID user
-                'status' => 'pending',
+                'status' => 'setuju',
+                 'file_surat' => 'surat.pdf'
             ],
             [
                 'no_surat' => '003/SM/2025',
@@ -44,7 +46,8 @@ class SuratMasukSeeder extends Seeder
                 'tgl_masuk' => Carbon::now()->subDays(7)->format('Y-m-d'),
                 'tgl_keluar' => null,
                 'user_id' => 4, // Sesuaikan dengan ID user
-                'status' => 'pending',
+                'status' => 'ditolak',
+                 'file_surat' => 'surat.pdf'
             ],
             [
                 'no_surat' => '004/SM/2025',
@@ -54,7 +57,8 @@ class SuratMasukSeeder extends Seeder
                 'tgl_masuk' => Carbon::now()->subDays(7)->format('Y-m-d'),
                 'tgl_keluar' => null,
                 'user_id' => 5, // Sesuaikan dengan ID user
-                'status' => 'pending',
+                'status' => 'verifikasi',
+                'file_surat' => 'surat.pdf'
             ],
         ];
 

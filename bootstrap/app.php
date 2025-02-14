@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => HakAksesMiddleware::class,
             'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+            'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 
         ]);
     })

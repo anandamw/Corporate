@@ -10,8 +10,9 @@
 
                 <div class="card-body px-0 py-0">
                     <div class=" p-5">
-                        <form action="/surat-masuk/store" method="POST">
-                            @csrf
+                    <form action="/surat-masuk/store" method="POST" enctype="multipart/form-data">
+
+                    @csrf
                             <div class="row">
                                 <div class="col-xl-6 col-12">
                                     <div class="mb-3">
@@ -55,7 +56,7 @@
                                 </div>
                                 <div class="col-xl-6 col-12">
                                     <div class="mb-3">
-                                        <label for="tgl_keluar" class="form-label">Tanggal Terakhir Surat</label>
+                                        <label for="tgl_keluar" class="form-label">Tanggal Batas Akhir</label>
                                         <input type="date" class="form-control" id="tgl_keluar" name="tgl_keluar"
                                             value="{{ old('tgl_keluar') }}">
                                         @error('tgl_keluar')
@@ -83,14 +84,24 @@
                                     <div class="mb-3">
                                         <label for="status" class="form-label">Status</label>
                                         <select class="form-select" id="status" name="status">
-                                            <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>
-                                                Menunggu</option>
-                                            <option value="approved" {{ old('status') == 'approved' ? 'selected' : '' }}>
-                                                Disetujui</option>
-                                            <option value="rejected" {{ old('status') == 'rejected' ? 'selected' : '' }}>
+                                            <option value="verifikasi" {{ old('status') == 'verifikasi' ? 'selected' : '' }}>
+                                            Verifikasi</option>
+                                            <option value="setuju" {{ old('status') == 'setuju' ? 'selected' : '' }}>
+                                            Setuju</option>
+                                            <option value="ditolak" {{ old('status') == 'ditolak' ? 'selected' : '' }}>
                                                 Ditolak</option>
                                         </select>
                                         @error('status')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-12">
+                                    <div class="mb-3">
+                                        <label for="file_surat" class="form-label">File Surat</label>
+                                        <input type="file" class="form-control" id="file_surat" name="file_surat"
+                                            value="{{ old('file_surat') }}" required>
+                                        @error('file_surat')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
