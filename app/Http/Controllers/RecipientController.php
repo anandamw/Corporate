@@ -36,7 +36,7 @@ class RecipientController extends Controller
                 ")
                 ->orderBy('surat_masuk.created_at', 'desc') // Tambahan sorting berdasarkan tanggal terbaru
                 ->paginate(10),
-            'title' => 'Recipient',
+            'title' => 'Penerima',
         ];
 
 

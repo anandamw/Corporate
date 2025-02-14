@@ -33,7 +33,7 @@
                     <div class="card-header border-bottom pb-0">
                         <div class="d-sm-flex align-items-center mb-3">
                             <div>
-                                <h6 class="font-weight-semibold text-lg mb-0">Tabel Agenda</h6>
+                                <h6 class="font-weight-semibold text-lg mb-0">Tabel {{ $title }}</h6>
                                 {{-- <p class="text-sm mb-sm-0">These are details about the last transactions</p> --}}
                             </div>
                             <div class="ms-auto d-flex">
@@ -112,10 +112,8 @@
                                             @else
                                                 <td>
                                                     <span class="text-sm font-weight-normal">
-
-                                                        <a href="{{ asset('assets/file_surat/' . $item->file_surat) }}"
-                                                            style="color: rgb(24, 24, 255)" target="_blank">__Link >></a>
-
+                                                        <a href="{{ $item->link }}" style="color: rgb(24, 24, 255)">__Link
+                                                            >></a>
                                                     </span>
                                                 </td>
                                             @endif

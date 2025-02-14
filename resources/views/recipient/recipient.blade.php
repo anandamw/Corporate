@@ -30,7 +30,7 @@
                 <div class="card-header border-bottom pb-0">
                     <div class="d-sm-flex align-items-center mb-3">
                         <div>
-                            <h6 class="font-weight-semibold text-lg mb-0">Tabel Recipient</h6>
+                            <h6 class="font-weight-semibold text-lg mb-0">Tabel {{ $title }}</h6>
                             {{-- <p class="text-sm mb-sm-0">These are details about the last transactions</p> --}}
                         </div>
                         <div class="ms-auto d-flex">

@@ -9,7 +9,7 @@
                 <div class="card-header border-bottom pb-0">
                     <div class="d-sm-flex align-items-center mb-3">
                         <div>
-                            <h6 class="font-weight-semibold text-lg mb-0">Tabel Agenda</h6>
+                            <h6 class="font-weight-semibold text-lg mb-0">Tabel {{ $title }}</h6>
                             {{-- <p class="text-sm mb-sm-0">These are details about the last transactions</p> --}}
                         </div>
                         <div class="ms-auto d-flex">
@@ -51,7 +51,7 @@
                             <thead class="bg-gray-100">
                                 <tr>
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7">No</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Link</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">File Surat</th>
 
 
                                 </tr>

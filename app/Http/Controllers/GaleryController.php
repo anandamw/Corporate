@@ -13,7 +13,7 @@ class GaleryController extends Controller
     public function index()
     {
         $datas = [
-            'recipient' => SuratMasuk::join('users', 'surat_masuk.user_id', '=', 'users.id')->where('role', Auth::user()->role)->paginate(10),
+            'recipient' => SuratMasuk::join('users', 'surat_masuk.user_id', '=', 'users.id')->where('status','setuju')->paginate(10),
             'title' => 'Galeri',
         ];
 

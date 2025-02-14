@@ -19,26 +19,26 @@ class AgendaController extends Controller
 
         $datas = [
             'recipient' => SuratMasuk::select(
-                'surat_masuk.id as surat_id', // Aliaskan id dari surat_masuk agar tidak bentrok
+                'surat_masuk.id as surat_id',
                 'surat_masuk.*',
-                'users.name as user_name' // Ambil nama user jika dibutuhkan
+                'users.name as user_name'
             )
                 ->join('users', 'surat_masuk.user_id', '=', 'users.id')
-                ->whereNotNull('surat_masuk.link') // Perbaikan untuk memeriksa apakah link tidak null
-                ->orderByRaw("
-                    CASE 
-                        WHEN surat_masuk.status = 'verifikasi' THEN 1
-                        WHEN surat_masuk.status = 'setuju' THEN 2
-                        ELSE 3
-                    END
-                ")
-                ->orderBy('surat_masuk.created_at', 'desc') // Tambahan sorting berdasarkan tanggal terbaru
+                ->whereNotNull('surat_masuk.link')
+                ->orderByRaw("CASE 
+                WHEN surat_masuk.status = 'verifikasi' THEN 1 
+                WHEN surat_masuk.status = 'ditolak' THEN 2 
+                WHEN surat_masuk.status = 'setuju' THEN 3 
+                ELSE 4 END")
+                ->orderByDesc('surat_masuk.created_at') // Urutkan tanggal terbaru dalam status yang sama
                 ->paginate(10),
-            'title' => 'Agenda',
+
+            'title' => 'Daftar Kegiatan',
         ];
 
         return view('agenda.agenda', $datas);
     }
+
 
 
 
