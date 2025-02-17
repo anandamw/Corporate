@@ -27,14 +27,12 @@ class RecipientController extends Controller
                 ->when($user->role !== 'admin', function ($query) use ($user) {
                     return $query->where('users.role', $user->role);
                 })
-                ->orderByRaw("
-                    CASE 
-                        WHEN surat_masuk.status = 'verifikasi' THEN 1
-                        WHEN surat_masuk.status = 'setuju' THEN 2
-                        ELSE 3
-                    END
-                ")
-                ->orderBy('surat_masuk.created_at', 'desc') // Tambahan sorting berdasarkan tanggal terbaru
+                ->orderByRaw("CASE 
+                WHEN surat_masuk.status = 'verifikasi' THEN 1 
+                WHEN surat_masuk.status = 'ditolak' THEN 2 
+                WHEN surat_masuk.status = 'setuju' THEN 3 
+                ELSE 4 END")
+                ->orderByDesc('surat_masuk.created_at') // Urutkan tanggal terbaru dalam status yang sama
                 ->paginate(10),
             'title' => 'Penerima',
         ];
