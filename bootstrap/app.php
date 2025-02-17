@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => HakAksesMiddleware::class,
             'Excel' => Maatwebsite\Excel\Facades\Excel::class,
             'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
-
+            'LaravelPwa' => \Ladumor\LaravelPwa\LaravelPwa::class,
         ]);
     })
 
