@@ -50,21 +50,31 @@
                                         placeholder="Search">
                                 </div>
 
-                                <button type="button"
-                                    class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
+                                <!-- Select Filter -->
+                                <select id="filterSelect" class="form-select form-select-sm me-2">
+                                    <option value="">Pilih Waktu</option>
+                                    <option value="week">Minggu Ini</option>
+                                    <option value="month">Bulan Ini</option>
+                                    <option value="year">Tahun Ini</option>
+                                </select>
+
+                                <!-- Export Excel Button -->
+                                <button type="button" id="exportExcel"
+                                    class="btn btn-sm btn-success btn-icon d-flex align-items-center mb-0 me-2">
                                     <span class="btn-inner--icon">
-                                        <i class="fas fa-download me-2"></i> <!-- Ikon Download -->
+                                        <i class="fas fa-file-excel me-2"></i>
                                     </span>
-                                    <a href="/agenda/export" class="btn-inner--text text-white">Download Excel</a>
+                                    <span class="btn-inner--text">Export Excel</span>
                                 </button>
 
-                                <a href="/agenda/print"
+                                <button type="button" id="printPDF"
                                     class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
                                     <span class="btn-inner--icon">
-                                        <i class="fas fa-print me-2"></i> <!-- Ikon Print -->
+                                        <i class="fas fa-print me-2"></i>
                                     </span>
                                     <span class="btn-inner--text">Print PDF</span>
-                                </a>
+                                </button>
+
 
 
                             </div>
@@ -72,7 +82,7 @@
                     </div>
                     <div class="card-body px-0 py-0">
                         <div class="table-responsive p-0">
-                            <table class="table align-items-center justify-content-center mb-0 table-data">
+                            <table class="table align-items-center justify-content-center mb-0">
                                 <thead class="bg-gray-100">
                                     <tr>
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7">No</th>
@@ -180,13 +190,168 @@
                                                 </form>
                                             </td>
 
-
-
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.6.0/jspdf.plugin.autotable.min.js"></script>
+
+
+                        <script>
+                            document.getElementById('printPDF').addEventListener('click', function() {
+                                const {
+                                    jsPDF
+                                } = window.jspdf;
+                                let doc = new jsPDF();
+
+                                let filterValue = document.getElementById('filterSelect').value;
+                                let table = document.querySelector('.table'); // Pastikan ini tabel yang benar
+                                let rows = table.querySelectorAll('tbody tr');
+                                let filteredData = [];
+
+                                let today = new Date();
+                                let startDate, endDate;
+
+                                // Tentukan rentang tanggal berdasarkan filter
+                                if (filterValue === 'week') {
+                                    startDate = new Date(today.setDate(today.getDate() - today.getDay()));
+                                    endDate = new Date();
+                                } else if (filterValue === 'month') {
+                                    startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                                    endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                                } else if (filterValue === 'year') {
+                                    startDate = new Date(today.getFullYear(), 0, 1);
+                                    endDate = new Date(today.getFullYear(), 11, 31);
+                                }
+
+                                // Loop melalui baris tabel untuk filter
+                                rows.forEach(row => {
+                                    let tglMasuk = row.cells[5].innerText.trim(); // Ambil tanggal masuk dari kolom 6 (index 5)
+                                    let dateParts = tglMasuk.split('-'); // Format: YYYY-MM-DD
+                                    let rowDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+
+                                    // Jika tanggal sesuai filter, masukkan ke data yang diekspor
+                                    if (!filterValue || (rowDate >= startDate && rowDate <= endDate)) {
+                                        let rowData = [];
+                                        let cells = row.querySelectorAll('td');
+
+                                        for (let i = 0; i < cells.length - 2; i++) { // Eksklusif dua kolom terakhir
+                                            let cell = cells[i];
+
+                                            // Cek jika ini adalah kolom "Link"
+                                            if (i === 1) { // Kolom Link ada di index 1
+                                                let linkElement = cell.querySelector('a');
+                                                rowData.push(linkElement ? linkElement.href :
+                                                    'Tidak ada link'); // Ambil href atau teks
+                                            } else {
+                                                rowData.push(cell.innerText.trim());
+                                            }
+                                        }
+
+                                        filteredData.push(rowData);
+                                    }
+                                });
+
+                                // Header tabel PDF
+                                let headers = [
+                                    ['No', 'Link', 'Nomer Surat', 'Pengirim', 'Perihal', 'Tanggal Masuk', 'Batas Akhir', 'Status']
+                                ];
+
+                                // Tambahkan judul di PDF
+                                doc.setFontSize(16);
+                                doc.text('Laporan Surat Masuk', 14, 15);
+                                doc.setFontSize(12);
+                                doc.text(`Filter: ${filterValue || 'Semua'}`, 14, 22);
+
+                                // Tambahkan tabel ke PDF
+                                doc.autoTable({
+                                    head: headers,
+                                    body: filteredData,
+                                    startY: 30,
+                                    theme: 'striped',
+                                    styles: {
+                                        fontSize: 10
+                                    },
+                                    headStyles: {
+                                        fillColor: [0, 0, 0]
+                                    }, // Warna hitam untuk header
+                                });
+
+                                // Simpan sebagai file PDF
+                                doc.save(`Laporan_${filterValue || 'Semua'}.pdf`);
+                            });
+                        </script>
+
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+                        <script>
+                            document.getElementById('exportExcel').addEventListener('click', function() {
+                                let filterValue = document.getElementById('filterSelect').value;
+                                let table = document.querySelector('.table'); // Pastikan ini adalah tabel yang benar
+                                let rows = table.querySelectorAll('tbody tr');
+                                let filteredData = [];
+
+                                let today = new Date();
+                                let startDate, endDate;
+
+                                // Tentukan rentang tanggal berdasarkan filter
+                                if (filterValue === 'week') {
+                                    startDate = new Date(today.setDate(today.getDate() - today.getDay()));
+                                    endDate = new Date();
+                                } else if (filterValue === 'month') {
+                                    startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                                    endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                                } else if (filterValue === 'year') {
+                                    startDate = new Date(today.getFullYear(), 0, 1);
+                                    endDate = new Date(today.getFullYear(), 11, 31);
+                                }
+
+                                // Loop melalui baris tabel untuk filter
+                                rows.forEach(row => {
+                                    let tglMasuk = row.cells[5].innerText.trim(); // Ambil tanggal masuk dari kolom 6 (index 5)
+                                    let dateParts = tglMasuk.split('-'); // Format: YYYY-MM-DD
+                                    let rowDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+
+                                    // Jika tanggal sesuai filter, masukkan ke data yang diekspor
+                                    if (!filterValue || (rowDate >= startDate && rowDate <= endDate)) {
+                                        let rowData = [];
+                                        let cells = row.querySelectorAll('td');
+
+                                        for (let i = 0; i < cells.length - 2; i++) { // Eksklusif dua kolom terakhir
+                                            let cell = cells[i];
+
+                                            // Cek jika ini adalah kolom "Link"
+                                            if (i === 1) { // Kolom Link ada di index 1 (sesuai struktur tabel)
+                                                let linkElement = cell.querySelector('a');
+                                                rowData.push(linkElement ? linkElement.href :
+                                                    'Tidak ada link'); // Ambil href atau teks
+                                            } else {
+                                                rowData.push(cell.innerText.trim());
+                                            }
+                                        }
+
+                                        filteredData.push(rowData);
+                                    }
+                                });
+
+                                // Buat WorkSheet & WorkBook Excel
+                                let wb = XLSX.utils.book_new();
+                                let ws = XLSX.utils.aoa_to_sheet([
+                                    ['No', 'Link', 'Nomer Surat', 'Pengirim', 'Perihal', 'Tanggal Masuk', 'Batas Akhir',
+                                        'Status'
+                                    ], // Header tanpa 2 kolom terakhir
+                                    ...filteredData
+                                ]);
+
+                                XLSX.utils.book_append_sheet(wb, ws, "Data Filtered");
+
+                                // Simpan File Excel
+                                XLSX.writeFile(wb, `Export_${filterValue || 'Semua'}.xlsx`);
+                            });
+                        </script>
+
                         <div class="border-top py-3 px-3 d-flex align-items-center justify-content-between">
                             <!-- Previous Button -->
                             <button class="btn btn-sm btn-white @if ($recipient->onFirstPage()) disabled @endif"
@@ -229,6 +394,8 @@
                                 Next <i class="fas fa-arrow-right ms-2"></i>
                             </button>
                         </div>
+
+
 
                     </div>
                 </div>

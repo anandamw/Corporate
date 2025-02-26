@@ -33,8 +33,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/surat-masuk', [SuratMasukController::class, 'index']);
         Route::post('/surat-masuk/store', [SuratMasukController::class, 'store']);
         Route::get('/agenda', [AgendaController::class, 'index']);
-        Route::get('/agenda/print', [AgendaController::class, 'print']);
-        Route::get('/agenda/export', [AgendaController::class, 'export']);
         // Route untuk update status surat
         Route::put('/surat-masuk/{id}/update-status', [AgendaController::class, 'updateDataStatus'])->name('surat-masuk.updateStatus');
     });
